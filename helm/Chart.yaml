@@ -1,0 +1,12 @@
+apiVersion: v2
+name: conanexiles
+version: "0.99"
+appVersion: 2.7
+description: Conan Exiles dedicated server
+keywords:
+- game
+- server
+home: https://www.conanexiles.com/
+icon: https://www.clipartmax.com/png/full/177-1773312_conan-exiles-icon-by-malfacio-conan-exiles-pc-game-steam-digital-download.png
+sources:
+- https://github.com/alinmear/docker-conanexiles
