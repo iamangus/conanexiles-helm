@@ -29,13 +29,13 @@ spec:
         ports:
         - name: conanexiles-1
           containerPort: 7777
-          protocol: TCP
+          protocol: UDP
         - name: conanexiles-2
           containerPort: 7778
           protocol: UDP
-        #- name: conanexiles-3
-        #  containerPort: 27020
-        #  protocol: UDP
+        - name: conanexiles-3
+          containerPort: 27015
+          protocol: UDP
         volumeMounts:
         - name: config
           mountPath: /conanexiles
