@@ -21,10 +21,10 @@ spec:
     port: 7778
     targetPort: conanexiles-2
     protocol: UDP
-  #- name: conanexiles-3
-  #  port: 27020
-  #  targetPort: conanexiles-3
-  #  protocol: UDP
+  - name: conanexiles-3
+    port: 27015
+    targetPort: conanexiles-3
+    protocol: UDP
   {{- else }}
   - name: conanexiles-1
     port: {{ .Values.conanexilesServer.serverPort | int }}
