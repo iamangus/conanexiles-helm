@@ -38,10 +38,7 @@ spec:
         #  protocol: UDP
         volumeMounts:
         - name: config
-          mountPath: /home/steam/.avorion/galaxies/avorion_galaxy
-        #- name: server-ini
-        #  mountPath: /home/steam/.avorion/galaxies/avorion_galaxy/temp-server.ini
-        #  subPath: temp-server.ini
+          mountPath: /conanexiles
       volumes:
       - name: config
         persistentVolumeClaim:
