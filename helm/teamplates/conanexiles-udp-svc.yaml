@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "conanexiles.fullname" . }}-udp
+  labels:
+    app: {{ template "conanexiles.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ template "conanexiles.fullname" . }}
+spec:
+  type: {{ .Values.conanexilesServer.serviceType }}
+  ports:
+  {{- if eq "LoadBalancer" .Values.conanexilesServer.serviceType }}
+  - name: conanexiles-1
+    port: 7777
+    targetPort: conanexiles-1
+    protocol: UDP
+  - name: conanexiles-2
+    port: 7778
+    targetPort: conanexiles-2
+    protocol: UDP
+  #- name: conanexiles-3
+  #  port: 27020
+  #  targetPort: conanexiles-3
+  #  protocol: UDP
+  {{- else }}
+  - name: conanexiles-1
+    port: {{ .Values.conanexilesServer.serverPort | int }}
+    targetPort: conanexiles-1
+    nodePort: {{ .Values.conanexilesServer.serverPort | int }}
+    protocol: UDP
+  {{- end }}
+  selector:
+    app: {{ template "conanexiles.fullname" . }}
