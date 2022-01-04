@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "conanexiles.fullname" . }}
+  labels:
+    app: {{ template "conanexiles.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "conanexiles.fullname" . }}
+      release: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: {{ template "conanexiles.fullname" . }}
+        release: "{{ .Release.Name }}"
+    spec:
+      containers:
+      - name: {{ template "conanexiles.fullname" . }}
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        imagePullPolicy: Always
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+
+        ports:
+        - name: conanexiles-1
+          containerPort: 7777
+          protocol: TCP
+        - name: conanexiles-2
+          containerPort: 7778
+          protocol: UDP
+        #- name: conanexiles-3
+        #  containerPort: 27020
+        #  protocol: UDP
+        volumeMounts:
+        - name: config
+          mountPath: /home/steam/.avorion/galaxies/avorion_galaxy
+        #- name: server-ini
+        #  mountPath: /home/steam/.avorion/galaxies/avorion_galaxy/temp-server.ini
+        #  subPath: temp-server.ini
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+{{- if eq .Values.persistence.claimName "" }}
+          claimName: {{ template "conanexiles.fullname" . }}-config
+{{- else }}
+          claimName: {{ .Values.persistence.claimName }}
+{{- end }}
