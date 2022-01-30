@@ -23,6 +23,12 @@ spec:
       - name: {{ template "conanexiles.fullname" . }}
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: Always
+        
+        {{ if .Values.env }}
+        env:
+{{ toYaml .Values.env | indent 10 }}
+        {{- end }}
+        
         resources:
 {{ toYaml .Values.resources | indent 10 }}
 
