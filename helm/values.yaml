@@ -16,6 +16,11 @@ conanexilesServer:
   serverName: Conan Exiles Kubernetes Server
   serverPort: 7777
   serviceType: LoadBalancer
+  
+env: {}
+#env:
+#- name: ADMIN_PASS
+#  value: test
 
 persistence:
   config:
