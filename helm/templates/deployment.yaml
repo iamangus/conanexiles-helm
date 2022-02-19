@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "conanexiles.fullname" . }}
   labels:
-    game: "{{ .Values.deploymentLabels.gameName }}"
+    gamename: "{{ .Values.deploymentLabels.gameName }}"
     custguild: "{{ .Values.deploymentLabels.customerGuildID }}"
     app: {{ template "conanexiles.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
