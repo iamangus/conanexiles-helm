@@ -3,6 +3,10 @@
 image: alinmear/docker-conanexiles
 imageTag: latest
 
+deploymentLabels:
+  gameName:
+  customerGuildID: 
+
 replicaCount: 1
 
 # Configure resource requests and limits
